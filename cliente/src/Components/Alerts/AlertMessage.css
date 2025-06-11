@@ -1,0 +1,7 @@
+.alertMsg {
+    display: none;
+    align-items: center;
+    flex-direction: column;
+    height: 200px;
+    font-size: 16pt;
+}

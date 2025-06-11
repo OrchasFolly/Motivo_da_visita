@@ -1,0 +1,19 @@
+.navBar {
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    width: 100vw;
+    font-size: 25pt;
+}
+
+.btnIcon {
+    background: transparent;
+    border: none;
+}
+
+@media (width <= 670px){
+  .navBar {
+    font-size: 14pt;
+    position: relative;
+  }
+}

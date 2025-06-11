@@ -1,0 +1,89 @@
+.Main-Style {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  flex-direction: column;
+}
+
+.Form-Style {
+  display: flex;
+  text-align: start;
+  flex-direction: column;
+  background-color: #a3a3a3;
+  color: #222c42;
+  width: 800px;
+  padding: 10px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.title {
+  text-align: center;
+  font-size: 100%;
+}
+
+#alert-message {
+  display: flex;
+  align-items: center;
+  font-size: small;
+  margin: 5px;
+  height: 20px;
+}
+
+.alignSearch {
+  display: flex;
+  justify-content: end;
+}
+
+.searchItem {
+  border: none;
+  width: 200px;
+  height: 30px;
+  margin: 5px;
+  font-size: medium;
+}
+
+.searchItem:focus {
+  outline:solid 4px #666666;
+}
+
+#codControl {
+  display: none;
+}
+
+#exib {
+  display: none;
+  flex-direction: column;
+  background-color: #a3a3a3;
+  width: 800px;
+  padding: 10px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.ButtonBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.PrimaryGroup {
+  display: flex;
+  justify-content: start;
+}
+
+.SecondaryGroup {
+  display: flex;
+  justify-content: end;
+}
+
+@media (width <= 670px){
+  .Form-Style, #exib {
+    width: 330px;
+  }
+  .alignSearch {
+    justify-content: center;
+  }
+  .SecondaryGroup {
+    justify-content: center;
+  }
+}

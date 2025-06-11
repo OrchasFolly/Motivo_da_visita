@@ -1,0 +1,50 @@
+.App-header {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.col-form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+label {
+  font-size: large;
+}
+
+button, input {
+  padding: 5px;
+  border-radius: 0.5rem;
+}
+
+.title {
+  padding: 20px;
+}
+
+@media (height >= 1000px){
+  button, input {
+      font-size: 20px;
+  }
+  .title {
+      font-size: 60px;
+  }
+}
+
+@media (height <= 932px ) and (width >= 344px){
+  .App-header {
+    min-height: 130vh;
+  }
+}
+
+@media (height <= 800px ) and (width > 1000px){
+  .App-header {
+    min-height: 170vh;
+  }
+}
