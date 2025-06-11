@@ -11,7 +11,7 @@
   flex-direction: column;
   background-color: #a3a3a3;
   color: #222c42;
-  width: 800px;
+  width: 750px;
   padding: 10px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -55,7 +55,7 @@
   display: none;
   flex-direction: column;
   background-color: #a3a3a3;
-  width: 800px;
+  width: 750px;
   padding: 10px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;

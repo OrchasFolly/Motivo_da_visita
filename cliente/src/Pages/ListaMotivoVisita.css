@@ -65,7 +65,7 @@
   overflow-x: auto;
   scrollbar-width:none;
   scroll-snap-type: y mandatory;
-  width: 70vw;
+  width: 100rem;
 }
 
 .tabScroll:hover {
