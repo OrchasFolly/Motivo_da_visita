@@ -38,7 +38,7 @@ export default class MotivoVisitaDB{
                 await conexao.execute(sql, parametros);
                 await conexao.release();
             } catch ( erro ) {
-                console.log("ERRO DISPLAY" + erro);
+                console.log(erro);
             }
         }
     }
@@ -80,40 +80,48 @@ export default class MotivoVisitaDB{
     }
 
     async consultar(){
-        const conexao = await conection();
-        const sql = `SELECT * FROM motivo_de_visita ORDER BY nome_visita`;
-        const [registros, campos] = await conexao.execute(sql);
-        await conexao.release();
-        let listaMotivos = [];
-        for (const registro of registros){
-            const cliente = new MotivoVisita(registro.cod,
-                                        registro.nome_visita,
-                                        registro.paciente,
-                                        registro.endereco,
-                                        registro.motivo
-                                        );
-            listaMotivos.push(cliente);
-                                    
+        try {
+            const conexao = await conection();
+            const sql = `SELECT * FROM motivo_de_visita ORDER BY nome_visita`;
+            const [registros, campos] = await conexao.execute(sql);
+            await conexao.release();
+            let listaMotivos = [];
+            for (const registro of registros){
+                const cliente = new MotivoVisita(registro.cod,
+                                            registro.nome_visita,
+                                            registro.paciente,
+                                            registro.endereco,
+                                            registro.motivo
+                                            );
+                listaMotivos.push(cliente);
+                                        
+            }
+            return listaMotivos;
+        } catch ( erro ) {
+            console.log(erro);
         }
-        return listaMotivos;
     }
     
     async consultarPelaChave(key){
-        const conexao = await conection();
-        const sql = `SELECT * FROM motivo_de_visita WHERE cod LIKE '%${key}%'`;
-        const [registros, campos] = await conexao.execute(sql, [key]);
-        await conexao.release();
-        let listaMotivos = [];
-        for (const registro of registros){
-            const cliente = new MotivoVisita(registro.cod,
-                                        registro.nome_visita,
-                                        registro.paciente,
-                                        registro.endereco,
-                                        registro.motivo
-                                        );
-            listaMotivos.push(cliente);
-                                    
+        try {
+            const conexao = await conection();
+            const sql = `SELECT * FROM motivo_de_visita WHERE cod LIKE '%${key}%'`;
+            const [registros, campos] = await conexao.execute(sql, [key]);
+            await conexao.release();
+            let listaMotivos = [];
+            for (const registro of registros){
+                const cliente = new MotivoVisita(registro.cod,
+                                            registro.nome_visita,
+                                            registro.paciente,
+                                            registro.endereco,
+                                            registro.motivo
+                                            );
+                listaMotivos.push(cliente);
+                                        
+            }
+            return listaMotivos;
+        } catch ( erro ) {
+            console.log(erro);
         }
-        return listaMotivos;
     }
 }

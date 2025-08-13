@@ -1,19 +1,19 @@
 const endpoint = "http://localhost:5174/motivo_visita";
 
-function showMessage(mensagem, tipo="success"){
+function showMessage(message, type="success"){
     const alert = document.getElementById("alert-message");
-    alert.innerHTML = `<div class="alert alert-${tipo} sm" role="alert">Mensagem: ${mensagem}</div>`
+    alert.innerHTML = `<div class="alert alert-${type} sm" role="alert">Mensagem: ${message}</div>`
     setInterval(() => {
         alert.innerHTML = "";
     }, 5000);
 }
 
-function pegandoDados(){
-    const cod = document.getElementById("codIdentify").value;
-    const nome_visita = document.getElementById("nomeIdentify").value;
-    const paciente = document.getElementById("pacienteIdentify").value;
-    const endereco = document.getElementById("enderecoIdentify").value;
-    const motivo = document.getElementById("motivoIdentify").value;
+function gettingData(){
+    const cod = document.getElementById("codId").value;
+    const nome_visita = document.getElementById("nomeId").value;
+    const paciente = document.getElementById("pacienteId").value;
+    const endereco = document.getElementById("enderecoId").value;
+    const motivo = document.getElementById("motivoId").value;
 
     return {
         "cod": cod,
@@ -24,14 +24,14 @@ function pegandoDados(){
     }
 }
 
-function exibindoTabela(Key = ""){
+function displayTable(Key = ""){
     fetch(`${endpoint}/${Key}`, {
         method: "GET"
-    }).then((resposta) => {
-        return resposta.json();
-    }).then((dataResponse) => {
-        if (dataResponse.status){
-            const items = dataResponse.clientes;
+    }).then((response) => {
+        return response.json();
+    }).then((dataReceived) => {
+        if (dataReceived.status){
+            const items = dataReceived.clients;
             const divTable = document.getElementById("get-tab");
             divTable.innerHTML = "";
             if (items.length > 0){
@@ -42,7 +42,7 @@ function exibindoTabela(Key = ""){
                     <th class="spaceCol">Visita</th>
                     <th class="spaceCol">Paciente</th>
                     <th class="spaceCol">endereço</th>
-                    <th class="spaceMotivo">Motivo</th>
+                    <th class="spaceExt">Motivo</th>
                     <th class="spaceCol">Ações</th>
                 `
                 const card = document.createElement("tbody");
@@ -57,7 +57,7 @@ function exibindoTabela(Key = ""){
                         <td class="spaceCol">${items[i].nome_visita}</td>
                         <td class="spaceCol">${items[i].paciente}</td>
                         <td class="spaceCol">${items[i].endereco}</td>
-                        <td class="spaceMotivo">${items[i].motivo}</td>
+                        <td class="spaceExt">${items[i].motivo}</td>
                     `
 
                     const col = document.createElement("td");
@@ -73,12 +73,12 @@ function exibindoTabela(Key = ""){
                         blockForm.style.pointerEvents = "none";
                         blockForm.style.opacity = 0.5;
                         delAlert.style.display = "flex";
-                        btnPegarDados(
+                        btnGetData(
                             items[i].cod,
                             items[i].nome_visita,
                             items[i].paciente,
                             items[i].endereco,
-                            items[i].motivo,'excluir'
+                            items[i].motivo,'delete'
                         )
                     }
                     col.appendChild(btnDel);
@@ -88,12 +88,12 @@ function exibindoTabela(Key = ""){
                     btnUp.classList.add("btn","btn-warning","btn-sm","btnBox");
                     btnUp.onclick = function()
                     {
-                        btnPegarDados(
+                        btnGetData(
                             items[i].cod,
                             items[i].nome_visita,
                             items[i].paciente,
                             items[i].endereco,
-                            items[i].motivo,'atualizar'
+                            items[i].motivo,'update'
                         )
                     }
                     col.appendChild(btnUp);
@@ -107,7 +107,7 @@ function exibindoTabela(Key = ""){
             }
         }
         else{
-            showMessage(dataResponse.mensagem, "danger");
+            showMessage(dataReceived.message, "danger");
         }
 
     }).catch((erro) => {
@@ -115,23 +115,23 @@ function exibindoTabela(Key = ""){
     })
 }
 
-function registrando(){
-    const dadosEnviados = pegandoDados();
+function registering(){
+    const readyData = gettingData();
     fetch(endpoint, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(dadosEnviados)
-    }).then((resposta) => {
-        return resposta.json();
-    }).then((dadosRecebidos) => {
-        if (dadosRecebidos.status){
-            showMessage(dadosRecebidos.mensagem, "success");
-            exibindoTabela()
+        body: JSON.stringify(readyData)
+    }).then((response) => {
+        return response.json();
+    }).then((dataReceived) => {
+        if (dataReceived.status){
+            showMessage(dataReceived.message, "success");
+            displayTable()
         }
         else{
-            showMessage(dadosRecebidos.mensagem, "danger");
+            showMessage(dataReceived.message, "danger");
         }
 
     }).catch((erro) => {
@@ -139,22 +139,22 @@ function registrando(){
     });
 }
 
-function excluindo(){
+function deleting(){
     fetch(endpoint, {
         method: "DELETE",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-            cod: document.getElementById("codIdentify").value
+            cod: document.getElementById("codId").value
         })
-    }).then((resposta) => {
-        return resposta.json();
-    }).then((dadosRecebidos) => {
-        if (dadosRecebidos.status){
-            showMessage(dadosRecebidos.mensagem, "success");
-            exibindoTabela()
+    }).then((response) => {
+        return response.json();
+    }).then((dataReceived) => {
+        if (dataReceived.status){
+            showMessage(dataReceived.message, "success");
+            displayTable()
         }
         else{
-            showMessage(dadosRecebidos.mensagem, "danger");
+            showMessage(dataReceived.message, "danger");
         }
 
     }).catch((erro) => {
@@ -162,21 +162,21 @@ function excluindo(){
     });
 }
 
-function atualizando(){
-    const dadosEnviados = pegandoDados();
+function updating(){
+    const readyData = gettingData();
     fetch(endpoint, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(dadosEnviados)
-    }).then((resposta) => {
-        return resposta.json();
-    }).then((dadosRecebidos) => {
-        if (dadosRecebidos.status){
-            showMessage(dadosRecebidos.mensagem, "success");
-            exibindoTabela()
+        body: JSON.stringify(readyData)
+    }).then((response) => {
+        return response.json();
+    }).then((dataReceived) => {
+        if (dataReceived.status){
+            showMessage(dataReceived.message, "success");
+            displayTable()
         }
         else{
-            showMessage(dadosRecebidos.mensagem, "danger");
+            showMessage(dataReceived.message, "danger");
         }
 
     }).catch((erro) => {
@@ -184,28 +184,28 @@ function atualizando(){
     });
 }
 
-function btnPegarDados(cod, nome_visita, paciente, endereco, motivo, msg = "atualizar"){
-    document.getElementById("codIdentify").value = cod;
-    document.getElementById("nomeIdentify").value = nome_visita;
-    document.getElementById("pacienteIdentify").value = paciente;
-    document.getElementById("enderecoIdentify").value = endereco;
-    document.getElementById("motivoIdentify").value = motivo;
+function btnGetData(cod, nome_visita, paciente, endereco, motivo, msg = "update"){
+    document.getElementById("codId").value = cod;
+    document.getElementById("nomeId").value = nome_visita;
+    document.getElementById("pacienteId").value = paciente;
+    document.getElementById("enderecoId").value = endereco;
+    document.getElementById("motivoId").value = motivo;
 
-    if (msg === "atualizar"){
-        document.getElementById("atualizar").disabled = false;
-        document.getElementById("registrar").disabled = true;
+    if (msg === "update"){
+        document.getElementById("update").disabled = false;
+        document.getElementById("register").disabled = true;
     }
 
 }
 
 function resetForm(){
-    document.getElementById("atualizar").disabled = true;
-    document.getElementById("registrar").disabled = false;
-    document.getElementById("codIdentify").value = "";
-    document.getElementById("nomeIdentify").value = "";
-    document.getElementById("pacienteIdentify").value = "";
-    document.getElementById("enderecoIdentify").value = "";
-    document.getElementById("motivoIdentify").value = "";
+    document.getElementById("update").disabled = true;
+    document.getElementById("register").disabled = false;
+    document.getElementById("codId").value = "";
+    document.getElementById("nomeId").value = "";
+    document.getElementById("pacienteId").value = "";
+    document.getElementById("enderecoId").value = "";
+    document.getElementById("motivoId").value = "";
     const control = document.getElementById("codControl");
     const delAlert = document.getElementById("deleteMessage");
     const blockForm = document.getElementById("block");
@@ -216,12 +216,12 @@ function resetForm(){
 }
 
 const fetchService = {
-    registrando,
-    atualizando,
-    excluindo,
-    exibindoTabela,
+    registering,
+    updating,
+    deleting,
+    displayTable,
     resetForm
 }
-exibindoTabela();
+displayTable();
 
 export default fetchService;

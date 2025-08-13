@@ -10,7 +10,7 @@ function AlertMessage() {
   }
 
   const handleDelete = () => {
-    fetchService.excluindo()
+    fetchService.deleting()
     fetchService.resetForm()
   }
 

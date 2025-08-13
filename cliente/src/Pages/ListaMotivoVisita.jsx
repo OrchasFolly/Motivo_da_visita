@@ -3,10 +3,10 @@ import ButtonPrimary from '../Components/Buttons/ButtonPrimary';
 import { RxReload } from 'react-icons/rx';
 import fetchService from '../services/fetchService';
 
-function ListaCancelamento() {
+function ListaMotivos() {
   
   const handleLoad = () => {
-    fetchService.exibindoTabela()
+    fetchService.displayTable()
   }
   handleLoad()
 
@@ -32,4 +32,4 @@ function ListaCancelamento() {
   );
 }
 
-export default ListaCancelamento;
+export default ListaMotivos;

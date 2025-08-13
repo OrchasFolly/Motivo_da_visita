@@ -18,7 +18,7 @@ function Motivo() {
 
   const handleSearch = () => {
     const item = document.getElementById("search").value;
-    fetchService.exibindoTabela(item);
+    fetchService.displayTable(item);
   }
   
   const handleReset = () => {
@@ -34,7 +34,7 @@ function Motivo() {
     }
     else{
       form.classList.add('was-validated');
-      !document.getElementById("registrar").disabled ? fetchService.registrando() : fetchService.atualizando();
+      !document.getElementById("register").disabled ? fetchService.registering() : fetchService.updating();
     }
   }
 
@@ -43,43 +43,43 @@ function Motivo() {
       <div id="block" className="Main-Style">
         <Form id="formRegister" className="Form-Style" onSubmit={handleValidation} noValidate>
           <Row>
-            <h1 className="title">Motivo de cancelamento</h1>
+            <h1 className="title">Motivo de visita</h1>
           </Row>
           <Row>
             <Form.Group>
               <Form.Label>Nome visita</Form.Label>
-              <Form.Control id="nomeIdentify" minLength={5} maxLength={60} type="text" required/>
+              <Form.Control id="nomeId" minLength={5} maxLength={60} type="text" required/>
             </Form.Group>
           </Row>
           <Row>
             <Form.Group as={Col}>
               <Form.Label>Paciente</Form.Label>
-              <Form.Control id="pacienteIdentify" minLength={3} maxLength={60} type="text" required/>
+              <Form.Control id="pacienteId" minLength={3} maxLength={60} type="text" required/>
             </Form.Group>
             <Form.Group as={Col}> 
               <Form.Label>Endereco</Form.Label>
-              <Form.Control id="enderecoIdentify" minLength={5} maxLength={60} type="text" required/>
+              <Form.Control id="enderecoId" minLength={5} maxLength={60} type="text" required/>
             </Form.Group>
           </Row>
           <Row>
             <Form.Group id="codControl">
               <Form.Label>Código</Form.Label>
-              <Form.Control id="codIdentify" type="text"/>
+              <Form.Control id="codId" type="text"/>
             </Form.Group>
           </Row>
           <Row>
             <Form.Group className="mb-3">
               <Form.Label>Motivo</Form.Label>
-              <Form.Control id="motivoIdentify" as="textarea" minLength={10}
+              <Form.Control id="motivoId" as="textarea" minLength={10}
                 maxLength={255} rows={3} required/>
             </Form.Group>
           </Row>
           <Row className="ButtonBox">
             <Col className="PrimaryGroup">
-              <ButtonPrimary id={"registrar"} type={"submit"} variant={"success"}
+              <ButtonPrimary id={"register"} type={"submit"} variant={"success"}
                 title={"Registrar"}
               />
-              <ButtonPrimary id={"atualizar"} type="submit" variant={"warning"}
+              <ButtonPrimary id={"update"} type="submit" variant={"warning"}
                 title={"Atualizar"} disabled={true}
               />
               <ButtonPrimary type={"reset"} variant={"secondary"} title={"Limpar"}
