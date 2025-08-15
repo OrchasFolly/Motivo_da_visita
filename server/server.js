@@ -1,5 +1,6 @@
 import express from 'express';
 import rotaMotivoVisita from './Router/rotaMV.js';
+import rotaPacientes from './Router/rotaP.js';
 import cors from 'cors'
 
 const porta = 5174;
@@ -12,6 +13,7 @@ app.use(express.urlencoded({extended:false}));
 app.use(express.json());
 
 app.use('/motivo_visita', rotaMotivoVisita);
+app.use('/pacientes', rotaPacientes);
 
 app.listen(porta,localhost, ()=>{
     console.log(`Backend do servidor rodando em http://${localhost}:${porta}`);

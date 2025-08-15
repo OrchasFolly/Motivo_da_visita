@@ -14,7 +14,10 @@ export default class MotivoVisitaDB{
                 nome_visita VARCHAR(255) NOT NULL,
                 paciente VARCHAR(255) NOT NULL,
                 endereco VARCHAR(255) NOT NULL,
-                motivo VARCHAR(255) NOT NULL
+                motivo VARCHAR(255) NOT NULL,
+
+                constraint fkNomePaciente foreign key (paciente)
+		            references pacientes(cod)
             )`;
             await conexao.execute(sql);
         } catch ( erro ) {

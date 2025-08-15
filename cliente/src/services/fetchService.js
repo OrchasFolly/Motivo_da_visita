@@ -1,4 +1,5 @@
 const endpoint = "http://localhost:5174/motivo_visita";
+const endpoint2 = "http://localhost:5174/pacientes";
 
 function showMessage(message, type="success"){
     const alert = document.getElementById("alert-message");
@@ -22,6 +23,37 @@ function gettingData(){
         "endereco": endereco,
         "motivo": motivo
     }
+}
+
+function displayNames(Key = ""){
+    fetch(`${endpoint2}/${Key}`, {
+        method: "GET"
+    }).then((response) => {
+        return response.json();
+    }).then((dataReceived) => {
+        if (dataReceived.status){
+            const items = dataReceived.clients;
+            const selectNames = document.getElementById("pacienteId");
+            if (items.length > 0){
+                for (let i = 0; i < items.length; i++){
+                    const option = document.createElement("option");
+                    option.innerHTML = `
+                       ${items[i].nome_paciente}
+                    `
+                    selectNames.appendChild(option);
+                }
+            }
+            else{
+                showMessage("Não há nomes", "warning");
+            }
+        }
+        else{
+            showMessage(dataReceived.message, "danger");
+        }
+
+    }).catch((erro) => {
+        showMessage(erro, "warning");
+    })
 }
 
 function displayTable(Key = ""){
@@ -223,5 +255,6 @@ const fetchService = {
     resetForm
 }
 displayTable();
+displayNames();
 
 export default fetchService;

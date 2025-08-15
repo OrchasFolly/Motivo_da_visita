@@ -54,7 +54,9 @@ function Motivo() {
           <Row>
             <Form.Group as={Col}>
               <Form.Label>Paciente</Form.Label>
-              <Form.Control id="pacienteId" minLength={3} maxLength={60} type="text" required/>
+              <Form.Select id="pacienteId" minLength={3} maxLength={60} aria-label="Default select example" type="text" required>
+                <option>Selecione um nome</option>
+              </Form.Select>
             </Form.Group>
             <Form.Group as={Col}> 
               <Form.Label>Endereco</Form.Label>
