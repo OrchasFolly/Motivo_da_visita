@@ -7,8 +7,8 @@ export default class EX_PacientesDB{
     }
 
     async init(){
+        const conexao = await conection();
         try {
-            const conexao = await conection();
             const sql = `CREATE TABLE IF NOT EXISTS pacientes (
                 cod INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
                 nome_paciente VARCHAR(255) NOT NULL
@@ -20,8 +20,8 @@ export default class EX_PacientesDB{
     }
 
     async consultar(){
+        const conexao = await conection();
         try {
-            const conexao = await conection();
             const sql = `SELECT * FROM pacientes ORDER BY nome_paciente`;
             const [registros, campos] = await conexao.execute(sql);
             await conexao.release();

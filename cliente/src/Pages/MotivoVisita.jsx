@@ -28,14 +28,15 @@ function Motivo() {
   const handleValidation = (event) => {
     const form = event.currentTarget;
     if (!form.checkValidity()){
-      event.preventDefault();
-      event.stopPropagation();
       form.classList.add('was-validated');
     }
     else{
       form.classList.add('was-validated');
       !document.getElementById("register").disabled ? fetchService.registering() : fetchService.updating();
+      form.reset();
     }
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   return (
@@ -55,7 +56,7 @@ function Motivo() {
             <Form.Group as={Col}>
               <Form.Label>Paciente</Form.Label>
               <Form.Select id="pacienteId" minLength={3} maxLength={60} aria-label="Default select example" type="text" required>
-                <option>Selecione um nome</option>
+                <option></option> {/*Algum placeholder talvez?*/}
               </Form.Select>
             </Form.Group>
             <Form.Group as={Col}> 

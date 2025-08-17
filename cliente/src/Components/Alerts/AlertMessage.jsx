@@ -18,9 +18,7 @@ function AlertMessage() {
     <>
         <Alert id="deleteMessage" className="alertMsg" variant="danger">
             <Alert.Heading>Warning</Alert.Heading>
-            <p>
-            Deseja realmente excluir?
-            </p>
+            <p>Deseja realmente excluir?</p>
             <hr />
             <div className="d-flex justify-content-end">
                 <ButtonPrimary type={"button"} variant={"secondary"} title={"Cancel"}

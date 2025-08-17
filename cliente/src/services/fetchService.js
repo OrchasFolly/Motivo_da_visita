@@ -4,7 +4,7 @@ const endpoint2 = "http://localhost:5174/pacientes";
 function showMessage(message, type="success"){
     const alert = document.getElementById("alert-message");
     alert.innerHTML = `<div class="alert alert-${type} sm" role="alert">Mensagem: ${message}</div>`
-    setInterval(() => {
+    setTimeout(() => {
         alert.innerHTML = "";
     }, 5000);
 }
@@ -160,7 +160,9 @@ function registering(){
     }).then((dataReceived) => {
         if (dataReceived.status){
             showMessage(dataReceived.message, "success");
-            displayTable()
+            setTimeout(() => {
+                displayTable();
+            }, 500);
         }
         else{
             showMessage(dataReceived.message, "danger");
@@ -183,7 +185,9 @@ function deleting(){
     }).then((dataReceived) => {
         if (dataReceived.status){
             showMessage(dataReceived.message, "success");
-            displayTable()
+            setTimeout(() => {
+                displayTable();
+            }, 500);
         }
         else{
             showMessage(dataReceived.message, "danger");
@@ -205,7 +209,9 @@ function updating(){
     }).then((dataReceived) => {
         if (dataReceived.status){
             showMessage(dataReceived.message, "success");
-            displayTable()
+            setTimeout(() => {
+                displayTable();
+            }, 500);
         }
         else{
             showMessage(dataReceived.message, "danger");

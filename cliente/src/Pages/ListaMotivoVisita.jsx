@@ -8,7 +8,6 @@ function ListaMotivos() {
   const handleLoad = () => {
     fetchService.displayTable()
   }
-  handleLoad()
 
   return (
     <>

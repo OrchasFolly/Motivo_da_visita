@@ -7,8 +7,8 @@ export default class MotivoVisitaDB{
     }
 
     async init(){
+        const conexao = await conection();
         try {
-            const conexao = await conection();
             const sql = `CREATE TABLE IF NOT EXISTS motivo_de_visita (
                 cod INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
                 nome_visita VARCHAR(255) NOT NULL,
@@ -27,8 +27,9 @@ export default class MotivoVisitaDB{
 
     async gravar(cliente){
         if (cliente instanceof MotivoVisita){
+            const conexao = await conection();
             try {
-                const conexao = await conection();
+                await conexao.beginTransaction();
                 const sql = `INSERT INTO motivo_de_visita (nome_visita, paciente, endereco, motivo)
                             VALUES (?, ?, ?, ?)`;
                 const parametros = [
@@ -39,8 +40,10 @@ export default class MotivoVisitaDB{
                 ];
 
                 await conexao.execute(sql, parametros);
+                await conexao.commit();
                 await conexao.release();
             } catch ( erro ) {
+                conexao.rollback();
                 console.log(erro);
             }
         }
@@ -48,8 +51,9 @@ export default class MotivoVisitaDB{
 
     async alterar(cliente){
         if (cliente instanceof MotivoVisita){
+            const conexao = await conection();
             try {
-                const conexao = await conection();
+                await conexao.beginTransaction();
                 const sql = `UPDATE motivo_de_visita SET 
                             nome_visita = ?, paciente = ?, endereco = ?, motivo = ?
                             WHERE cod = ?`;
@@ -61,8 +65,10 @@ export default class MotivoVisitaDB{
                     cliente.cod
                 ];
                 await conexao.execute(sql, parametros);
+                await conexao.commit();
                 await conexao.release();
             } catch ( erro ) {
+                conexao.rollback();
                 console.log(erro);
             }
         }
@@ -70,21 +76,24 @@ export default class MotivoVisitaDB{
 
     async excluir(cliente){
         if (cliente instanceof MotivoVisita){
+            const conexao = await conection();
             try {
-                const conexao = await conection();
+                await conexao.beginTransaction();
                 const sql = `DELETE FROM motivo_de_visita WHERE cod = ?`;
                 const parametros = [cliente.cod];
                 await conexao.execute(sql, parametros);
+                await conexao.commit();
                 await conexao.release();
             } catch ( erro ) {
+                conexao.rollback();
                 console.log(erro);
             }
         }
     }
 
     async consultar(){
+        const conexao = await conection();
         try {
-            const conexao = await conection();
             const sql = `SELECT * FROM motivo_de_visita ORDER BY nome_visita`;
             const [registros, campos] = await conexao.execute(sql);
             await conexao.release();
@@ -106,8 +115,8 @@ export default class MotivoVisitaDB{
     }
     
     async consultarPelaChave(key){
+        const conexao = await conection();
         try {
-            const conexao = await conection();
             const sql = `SELECT * FROM motivo_de_visita WHERE cod LIKE '%${key}%'`;
             const [registros, campos] = await conexao.execute(sql, [key]);
             await conexao.release();
