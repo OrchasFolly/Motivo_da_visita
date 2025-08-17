@@ -99,7 +99,7 @@ function Motivo() {
         <div id="exib">
           <div id="alert-message"></div>
           <div className="alignSearch">
-            <input id="search" type="number" min="0" className="searchItem" placeholder="Digite um código" onChange={handleSearch}/>
+            <input id="search" className="searchItem" placeholder="Digite um código" onChange={handleSearch}/>
           </div>
           <ListaMotivoVisita/>
         </div>

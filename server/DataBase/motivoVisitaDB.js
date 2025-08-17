@@ -117,7 +117,7 @@ export default class MotivoVisitaDB{
     async consultarPelaChave(key){
         const conexao = await conection();
         try {
-            const sql = `SELECT * FROM motivo_de_visita WHERE cod LIKE '%${key}%'`;
+            const sql = `SELECT * FROM motivo_de_visita WHERE cod LIKE '${key}%' OR paciente LIKE '${key}%'`;
             const [registros, campos] = await conexao.execute(sql, [key]);
             await conexao.release();
             let listaMotivos = [];
