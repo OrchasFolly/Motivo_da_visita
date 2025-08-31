@@ -1,13 +1,22 @@
 .Main-Style {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+
+.Base {
+  display: flex;
   flex-direction: column;
+  position: absolute;
 }
 
 .Form-Style {
   display: flex;
   text-align: start;
+  margin-top: 15%;
   flex-direction: column;
   background-color: #a3a3a3;
   color: #222c42;
